@@ -1,0 +1,24 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>Calendar App</title>
+  </head>
+  <body>
+      <h1>Calendar App</h1>
+      <!-- Your calendar UI goes here -->
+
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <script>
+          // Make a GET request to your PHP script
+          axios.get('/php-scripts/script.php')
+              .then(response => {
+                var tableData = document.
+                  console.log(response.data);
+              })
+              .catch(error => {
+                  console.error(error);
+              });
+      </script>
+  </body>
+</html>
