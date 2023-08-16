@@ -10,12 +10,42 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'timeGridDay',
+                initialView: 'dayGridMonth',
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'timeGridDay,timeGridWeek,dayGridMonth,dayGridYear,listWeek'
+                    right: 'timeGridDay,timeGridWeek,dayGridMonth,dayGridYear,multiMonthYear,listWeek'
                 },
+                themeSystem: 'bootstrap5',
+                events: [
+                  {
+                    title  : 'event1',
+                    start  : '2023-08-18T14:30:00',
+                    allDay : false,
+                    color: 'red',
+                    textColor: 'yellow',
+                  },
+                  {
+                    title  : 'event2',
+                    start  : '2023-08-15',
+                    end    : '2023-08-20',
+                    allDay : true,
+                    color: 'green',
+                    textColor: 'white'
+                  },
+                  {
+                    title  : 'event3',
+                    start  : '2023-08-19T12:30:00',
+                    allDay : false, // will make the time show
+                    color: 'yellow',
+                    textColor: 'red'
+                  }
+                ],
+                // plugins: ['@fullcalendar/google-calendar'],
+                // googleCalendarApiKey: 'AIzaSyC-40AiTBDvPeeMT_iRU7zaLDkxJ_skTK4',
+                // events: {
+                //   googleCalendarId: 'mohamed.nasser21794@gmail.com'
+                // },
                 dateClick: function(info) {
                 alert('a day has been clicked!\n'+ info.dateStr);
                 }
