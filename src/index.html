@@ -3,11 +3,29 @@
 <html>
   <head>
       <title>Calendar App</title>
+      <link rel="stylesheet" href="index.css">
+      <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+        <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridDay',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'timeGridDay,timeGridWeek,dayGridMonth,dayGridYear,listWeek'
+                }
+            });
+            calendar.render();
+        });
+
+        </script>
   </head>
   <body>
-      <h1>Calendar App</h1>
+      <h1>MyCalendar App</h1>
       <!-- Your calendar UI goes here -->
-
+        <div id='calendar'></div>
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
       <script>
           // Make a GET request to your PHP script
