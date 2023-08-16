@@ -15,6 +15,9 @@
                     left: 'prev,next today',
                     center: 'title',
                     right: 'timeGridDay,timeGridWeek,dayGridMonth,dayGridYear,listWeek'
+                },
+                dateClick: function(info) {
+                alert('a day has been clicked!\n'+ info.dateStr);
                 }
             });
             calendar.render();
@@ -26,17 +29,5 @@
       <h1>MyCalendar App</h1>
       <!-- Your calendar UI goes here -->
         <div id='calendar'></div>
-      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-      <script>
-          // Make a GET request to your PHP script
-          axios.get('/php-scripts/script.php')
-              .then(response => {
-                var tableData = document.
-                  console.log(response.data);
-              })
-              .catch(error => {
-                  console.error(error);
-              });
-      </script>
   </body>
 </html>
