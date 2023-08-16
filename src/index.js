@@ -1,11 +1,6 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
-import { Calendar } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
-
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -27,15 +22,6 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
-  let calendar = new Calendar(calendarEl, {
-    plugins: [ dayGridPlugin, timeGridPlugin, listPlugin ],
-    initialView: 'dayGridMonth',
-    headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,listWeek'
-    }
-  });
 };
 
 // This method will be called when Electron has finished
