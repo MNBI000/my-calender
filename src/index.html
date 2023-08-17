@@ -4,7 +4,15 @@
   <head>
       <title>Calendar App</title>
       <link rel="stylesheet" href="index.css">
-      <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+      <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script> -->
+      <!-- rrule lib -->
+<script src='https://cdn.jsdelivr.net/npm/rrule@2.6.4/dist/es5/rrule.min.js'></script>
+
+<!-- fullcalendar bundle -->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+
+<!-- the rrule-to-fullcalendar connector. must go AFTER the rrule lib -->
+<script src='https://cdn.jsdelivr.net/npm/@fullcalendar/rrule@6.1.8/index.global.min.js'></script>
         <script>
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -17,6 +25,14 @@
                     right: 'timeGridDay,timeGridWeek,dayGridMonth,dayGridYear,multiMonthYear,listWeek'
                 },
                 themeSystem: 'bootstrap5',
+                nowIndicator: true,
+                businessHours: {
+                  // days of week. an array of zero-based day of week integers (0=Sunday)
+                  daysOfWeek: [ 1, 2, 3, 4, 5 ], // Monday - Thursday
+
+                  startTime: '9:00', // a start time (10am in this example)
+                  endTime: '17:00', // an end time (6pm in this example)
+                },
                 events: [
                   {
                     title  : 'event1',
@@ -34,14 +50,44 @@
                     textColor: 'white'
                   },
                   {
-                    title  : 'event3',
-                    start  : '2023-08-19T12:30:00',
+                    title  : 'eventDaily',
+                    start  : '2023-08-19',
+                    startTime: '12:30:00',
+                    startRecur:'2023-08-19',
+                    endRecur:'2023-08-29',
+                    endTime: '14:30:00',
                     allDay : false, // will make the time show
                     color: 'yellow',
                     textColor: 'red'
+                  },
+                  {
+                    title  : 'eventweekly',
+                    rrule: {
+                      freq: 'weekly',
+                      interval: 1,
+                      byweekday: [ 'mo', 'fr' ],
+                      dtstart: '2023-02-01T10:30:00', // will also accept '20120201T103000'
+                      until: '2023-11-01' // will also accept '20120201'
+                    },
+                    duration: "2:00:00"
+                  },
+                  {
+                    title  : 'eventMonthly',
+                    rrule: {
+                      freq: 'monthly',
+                      interval: 1,
+                      dtstart: '2023-02-01T10:30:00', // will also accept '20120201T103000'
+                      until: '2023-11-01' // will also accept '20120201'
+                    },
+                    duration: "2:00:00"
                   }
                 ],
-                // plugins: ['@fullcalendar/google-calendar'],
+    //             plugins: [googleCalendarPlugin],
+    // googleCalendarApiKey: '<YOUR API KEY>',
+    // events: {
+    //     googleCalendarId: 'abcd1234@group.calendar.google.com'
+    // }
+                // plugins: [googleCalendarPlugin],//['@fullcalendar/google-calendar'],
                 // googleCalendarApiKey: 'AIzaSyC-40AiTBDvPeeMT_iRU7zaLDkxJ_skTK4',
                 // events: {
                 //   googleCalendarId: 'mohamed.nasser21794@gmail.com'
