@@ -98,6 +98,12 @@ https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.8/index.global.mi
                 },
                 dateClick: function(info) {
                 alert('a day has been clicked!\n'+ info.dateStr);
+                },
+                eventClick: function(event) {
+                    if (event.url) {
+                        window.open(event.url, "_blank");
+                        return false;
+                    }
                 }
             });
             calendar.render();

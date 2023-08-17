@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, Menu, MenuItem } = require('electron');
 const path = require('path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -18,6 +18,46 @@ const createWindow = () => {
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
+
+  const menu = new Menu()
+  menu.append(new MenuItem({
+    label: 'Main',
+    submenu: [
+      {
+        label: 'Main Calendar',
+        role: 'Main Calendar',
+        accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
+        click: () => {
+          mainWindow.loadFile(path.join(__dirname, 'index.html'));
+        }
+      },
+      {
+        label: 'reopen app',
+        role: 'reopen app',
+        accelerator: process.platform === 'darwin' ? 'Cmd+W' : 'Ctrl+W',
+        click: () => {
+          app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
+          app.exit(0)
+        }
+      }
+    ]
+  }))
+
+  Menu.setApplicationMenu(menu)
+
+  // app.whenReady().then(createWindow)
+
+  // app.on('window-all-closed', () => {
+  //   if (process.platform !== 'darwin') {
+  //     app.quit()
+  //   }
+  // })
+  
+  // app.on('activate', () => {
+  //   if (BrowserWindow.getAllWindows().length === 0) {
+  //     createWindow()
+  //   }
+  // })
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
