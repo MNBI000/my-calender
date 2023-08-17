@@ -13,6 +13,10 @@
 
 <!-- the rrule-to-fullcalendar connector. must go AFTER the rrule lib -->
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/rrule@6.1.8/index.global.min.js'></script>
+
+<script src="
+https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.8/index.global.min.js
+"></script>
         <script>
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -88,10 +92,10 @@
     //     googleCalendarId: 'abcd1234@group.calendar.google.com'
     // }
                 // plugins: [googleCalendarPlugin],//['@fullcalendar/google-calendar'],
-                // googleCalendarApiKey: 'AIzaSyC-40AiTBDvPeeMT_iRU7zaLDkxJ_skTK4',
-                // events: {
-                //   googleCalendarId: 'mohamed.nasser21794@gmail.com'
-                // },
+                googleCalendarApiKey: 'AIzaSyC-40AiTBDvPeeMT_iRU7zaLDkxJ_skTK4',
+                events: {
+                  googleCalendarId: 'mohamed.nasser21794@gmail.com'
+                },
                 dateClick: function(info) {
                 alert('a day has been clicked!\n'+ info.dateStr);
                 }
