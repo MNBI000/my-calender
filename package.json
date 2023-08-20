@@ -17,7 +17,8 @@
   "dependencies": {
     "axios": "^1.4.0",
     "electron-squirrel-startup": "^1.0.0",
-    "fullcalendar": "^6.1.8"
+    "fullcalendar": "^6.1.8",
+    "sound-play": "^1.1.0"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.3.0",

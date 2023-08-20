@@ -1,5 +1,7 @@
 const { app, BrowserWindow, Menu, MenuItem } = require('electron');
 const path = require('path');
+const sound = require("sound-play");
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -62,6 +64,22 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
+  sound.play("sounds/error.mp3");
+  
+
+//   const { Calendar } = require('@fullcalendar/core');
+// require('@fullcalendar/daygrid');
+//   const calendarEl = mainWindow.webContents.executeJavaScript('document.getElementById("calendar")');
+//   console.log(calendarEl);
+//   mainWindow.webContents.on('did-finish-load', () => {
+//     const calendar = new Calendar(calendarEl, {
+//       plugins: [ 'dayGrid' ],
+//       initialView: 'dayGridMonth'
+//       // Other FullCalendar options...
+//     });
+  
+//     calendar.render();
+//   });
 };
 
 // This method will be called when Electron has finished
@@ -88,3 +106,4 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
