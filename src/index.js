@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, MenuItem } = require('electron');
+const { app, BrowserWindow, Menu, MenuItem, dialog } = require('electron');
 const path = require('path');
 const sound = require("sound-play");
 
@@ -62,7 +62,20 @@ const createWindow = () => {
   Menu.setApplicationMenu(menu)
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  let wc = mainWindow.webContents;
+  wc.openDevTools();
+
+  wc.on('dom-ready', (e) => {
+    sound.play("assets/sounds/error.mp3");
+    dialog.showMessageBox(
+      (options = {
+        message: "hello message body is set on open the app",
+        title: "start message"
+      })).then((res) => {
+        console.log(res);
+      });
+      
+  })
 
 };
 
