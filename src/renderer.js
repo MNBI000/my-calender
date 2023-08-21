@@ -69,41 +69,12 @@ document.addEventListener('DOMContentLoaded', function() {
             duration: "2:00:00"
           }
         ],
-          // googleCalendarId: 'mohamednasser161@gmail.com',
-          // eventDataTransform: function (googleEvent) {
-          //   console.log(googleEvent);
-          //   var expiredColor = '#37d88f'; // Set the color for expired events
-
-          //   var eventColor = googleEvent.start < new Date() ? "" : expiredColor;
-          //   console.log(eventColor);
-          //       // var color = assignColorBasedOnTitle(googleEvent.summary);
-          //       return {
-          //         title: googleEvent.title,
-          //         start: googleEvent.start,
-          //         end: googleEvent.end,
-          //         description: googleEvent.description,
-          //         // color: color, // Assign color based on title
-          //         backgroundColor: eventColor,
-          //         // url: googleEvent.url
-          //       };
-              
-
-          // }
-        // },
-        // googleCalendarApiKey: 'AIzaSyC-40AiTBDvPeeMT_iRU7zaLDkxJ_skTK4',
-        // events: {
-        //   googleCalendarId: 'mohamed.nasser21794@gmail.com'
-        // },
         dateClick: function(info) {
         alert('a day has been clicked!\n'+ info.dateStr);
         },
         eventClick: function(event) {
-          
-         
             document.querySelector('dialog p').insertAdjacentHTML('beforeend', `${(event.event._def.extendedProps.description != undefined) ? event.event._def.extendedProps.description : "There is no description."}`);
             document.querySelector('dialog').style.display = 'block';
-
-            
             const sound = require("sound-play");
             sound.play("../sounds/error.mp3");
         }

@@ -1,8 +1,6 @@
 const { app, BrowserWindow, Menu, MenuItem } = require('electron');
 const path = require('path');
-const os = require('os-utils');
 const sound = require("sound-play");
-
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -66,13 +64,6 @@ const createWindow = () => {
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
-  // sound.play("../sounds/error.mp3");
-  
-  os.cpuUsage(function(v) {
-    mainWindow.webContents.send('cpu', v*100);
-    mainWindow.webContents.send('mem', os.freememPercentage()*100);
-    mainWindow.webContents.send('total-mem', os.totalmem()/1024);
-  });
 };
 
 // This method will be called when Electron has finished
