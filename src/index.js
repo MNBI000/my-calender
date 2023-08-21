@@ -12,6 +12,7 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 1000,
     height: 800,
+    icon: "./assets/img/logo.jpg",
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js'),
@@ -52,7 +53,6 @@ const createWindow = () => {
         role: 'Dev Tools',
         accelerator: process.platform === 'darwin' ? 'Cmd+J' : 'Shift+Ctrl+J',
         click: () => {
-          sound.play("sounds/error.mp3");
           mainWindow.webContents.openDevTools();
         }
       }
@@ -63,10 +63,9 @@ const createWindow = () => {
 
   // Open the DevTools.
   let wc = mainWindow.webContents;
-  wc.openDevTools();
 
   wc.on('dom-ready', (e) => {
-    sound.play("assets/sounds/error.mp3");
+    sound.play(path.join(__dirname, "assets/sounds/alarm.wav"));
     dialog.showMessageBox(
       (options = {
         message: "hello message body is set on open the app",
