@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
         eventClick: function(event) {
             document.querySelector('dialog p').insertAdjacentHTML('beforeend', `${(event.event._def.extendedProps.description != undefined) ? event.event._def.extendedProps.description : "There is no description."}`);
             document.querySelector('dialog').style.display = 'block';
-            const sound = require("sound-play");
             sound.play("../sounds/error.mp3");
         }
     });

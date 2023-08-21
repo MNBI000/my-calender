@@ -14,8 +14,7 @@ const createWindow = () => {
     height: 800,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false,
-      // preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, 'preload.js'),
     },
   });
 
@@ -53,6 +52,7 @@ const createWindow = () => {
         role: 'Dev Tools',
         accelerator: process.platform === 'darwin' ? 'Cmd+J' : 'Shift+Ctrl+J',
         click: () => {
+          sound.play("sounds/error.mp3");
           mainWindow.webContents.openDevTools();
         }
       }
