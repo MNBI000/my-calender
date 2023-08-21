@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Menu, MenuItem } = require('electron');
 const path = require('path');
+const os = require('os-utils');
 const sound = require("sound-play");
 
 
@@ -14,7 +15,9 @@ const createWindow = () => {
     width: 1000,
     height: 800,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,
+      contextIsolation: false,
+      // preload: path.join(__dirname, 'preload.js'),
     },
   });
 
@@ -44,42 +47,32 @@ const createWindow = () => {
       }
     ]
   }))
+  menu.append(new MenuItem({
+    label: 'Tools',
+    submenu: [
+      {
+        label: 'Dev Tools',
+        role: 'Dev Tools',
+        accelerator: process.platform === 'darwin' ? 'Cmd+J' : 'Shift+Ctrl+J',
+        click: () => {
+          mainWindow.webContents.openDevTools();
+        }
+      }
+    ]
+  }))
 
   Menu.setApplicationMenu(menu)
-
-  // app.whenReady().then(createWindow)
-
-  // app.on('window-all-closed', () => {
-  //   if (process.platform !== 'darwin') {
-  //     app.quit()
-  //   }
-  // })
-  
-  // app.on('activate', () => {
-  //   if (BrowserWindow.getAllWindows().length === 0) {
-  //     createWindow()
-  //   }
-  // })
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 
-  sound.play("sounds/error.mp3");
+  // sound.play("../sounds/error.mp3");
   
-
-//   const { Calendar } = require('@fullcalendar/core');
-// require('@fullcalendar/daygrid');
-//   const calendarEl = mainWindow.webContents.executeJavaScript('document.getElementById("calendar")');
-//   console.log(calendarEl);
-//   mainWindow.webContents.on('did-finish-load', () => {
-//     const calendar = new Calendar(calendarEl, {
-//       plugins: [ 'dayGrid' ],
-//       initialView: 'dayGridMonth'
-//       // Other FullCalendar options...
-//     });
-  
-//     calendar.render();
-//   });
+  os.cpuUsage(function(v) {
+    mainWindow.webContents.send('cpu', v*100);
+    mainWindow.webContents.send('mem', os.freememPercentage()*100);
+    mainWindow.webContents.send('total-mem', os.totalmem()/1024);
+  });
 };
 
 // This method will be called when Electron has finished

@@ -1,0 +1,31 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>os-usage info</title>
+    <script src="../index.js"></script>
+</head>
+<body>
+    hi
+    <div class="cpu"></div>
+    <div class="mem"></div>
+    <div class="total-mem"></div>
+    <script>
+        const electron = require('electron');
+        const ipcRenderer = electron.ipcRenderer;
+
+        ipcRenderer.on('cpu', function(e, data) {
+            document.querySelector('.cpu').innerHTML = "CPU usage: %" + data;
+            console.log(data);
+        });
+        ipcRenderer.on('mem', function(e, data) {
+            document.querySelector('.mem').innerHTML = "Memory usage: %" + data;
+            console.log(data);
+        });
+        ipcRenderer.on('total-mem', function(e, data) {
+            document.querySelector('.total-mem').innerHTML = "Total Memory: GB" + data;
+            console.log(data);
+        });
+    </script>
+</body>
+</html>
