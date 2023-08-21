@@ -9,6 +9,7 @@ if (require('electron-squirrel-startup')) {
 
 const createWindow = () => {
   // Create the browser window.
+  
   const mainWindow = new BrowserWindow({
     width: 1000,
     height: 800,
@@ -18,12 +19,11 @@ const createWindow = () => {
       preload: path.join(__dirname, 'preload.js'),
     },
   });
-
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
   const menu = new Menu()
-  menu.append(new MenuItem({
+  menu.append(new MenuItem([{
     label: 'Main',
     submenu: [
       {
@@ -44,8 +44,7 @@ const createWindow = () => {
         }
       }
     ]
-  }))
-  menu.append(new MenuItem({
+  },{
     label: 'Tools',
     submenu: [
       {
@@ -57,6 +56,19 @@ const createWindow = () => {
         }
       }
     ]
+  }]))
+  menu.append(new MenuItem({
+    label: 'Dashboard',
+    submenu: [
+      {
+        label: 'Add Event',
+        role: 'Add Event',
+        accelerator: process.platform === 'darwin' ? 'Cmd+J' : 'Shift+Ctrl+J',
+        click: () => {
+          mainWindow.loadFile(path.join(__dirname, 'dashboard/addEvent.html'));
+        }
+      }
+    ]
   }))
 
   Menu.setApplicationMenu(menu)
@@ -65,7 +77,8 @@ const createWindow = () => {
   let wc = mainWindow.webContents;
 
   wc.on('dom-ready', (e) => {
-    sound.play(path.join(__dirname, "assets/sounds/alarm.wav"));
+    console.log(path.join(__dirname, 'preload.js'))
+    // sound.play(path.join(__dirname, "assets/sounds/alarm.wav"));
     dialog.showMessageBox(
       (options = {
         message: "hello message body is set on open the app",
