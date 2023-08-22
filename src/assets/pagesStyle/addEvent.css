@@ -1,0 +1,48 @@
+.weekDays-selector {
+    display: none;
+  }
+  
+  .weekDays-selector input {
+    display: none!important;
+  }
+
+  .weekDays-selector .week-days-label {
+    font-weight: bold;
+  }
+  
+  .weekDays-selector input[type=checkbox] + label {
+    display: inline-block;
+    border-radius: 50%;
+    background: #dddddd;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    margin-right: 3px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .weekDays-selector input[type=checkbox]:checked + label {
+    background: #f49bfc;
+    color: #010101;
+    font-weight: bold;
+  }
+  
+
+   /* Every n units */
+
+   .every-time-input-container {
+    display: none;
+   }
+
+   .every-unit-container {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+   }
+   .every-unit-container * {
+    max-width: fit-content;
+    margin-right: 15px;
+   }
+  

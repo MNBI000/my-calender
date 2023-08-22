@@ -23,7 +23,7 @@ const createWindow = () => {
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
   const menu = new Menu()
-  menu.append(new MenuItem([{
+  menu.append(new MenuItem({
     label: 'Main',
     submenu: [
       {
@@ -44,7 +44,8 @@ const createWindow = () => {
         }
       }
     ]
-  },{
+  }))
+  menu.append(new MenuItem({
     label: 'Tools',
     submenu: [
       {
@@ -56,14 +57,13 @@ const createWindow = () => {
         }
       }
     ]
-  }]))
+  }))
   menu.append(new MenuItem({
     label: 'Dashboard',
     submenu: [
       {
         label: 'Add Event',
         role: 'Add Event',
-        accelerator: process.platform === 'darwin' ? 'Cmd+J' : 'Shift+Ctrl+J',
         click: () => {
           mainWindow.loadFile(path.join(__dirname, 'dashboard/addEvent.html'));
         }
@@ -79,13 +79,13 @@ const createWindow = () => {
   wc.on('dom-ready', (e) => {
     console.log(path.join(__dirname, 'preload.js'))
     // sound.play(path.join(__dirname, "assets/sounds/alarm.wav"));
-    dialog.showMessageBox(
-      (options = {
-        message: "hello message body is set on open the app",
-        title: "start message"
-      })).then((res) => {
-        console.log(res);
-      });
+    // dialog.showMessageBox(
+    //   (options = {
+    //     message: "hello message body is set on open the app",
+    //     title: "start message"
+    //   })).then((res) => {
+    //     console.log(res);
+    //   });
       
   })
 
