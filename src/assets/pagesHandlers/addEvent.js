@@ -3,12 +3,12 @@ function everyTimeUnitsRenderer(freqVal) {
         daily: 'Day',
         weekly: 'Week',
         monthly: 'Month',
-        annually: 'Year',
+        yearly: 'Year',
     };
 
     let unitSpan = document.getElementById('timeUnitSpan');
 
-    unitSpan.innerHTML = unitsArray[freqVal];
+    unitSpan.innerHTML = unitsArray[freqVal] + '(s)';
 }
 
 let freqSelect = document.getElementById('selectFreq');

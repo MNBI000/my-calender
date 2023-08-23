@@ -31,10 +31,10 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
             // color: 'yellow',
             // textColor: 'red'
             rrule: {
-                    freq: 'weekly',
+                    freq: 'yearly',
                     interval: 1,
-                    // byweekday: [ 'mo', 'fr' ],
-                    dtstart: '2023-02-01', // will also accept '20120201T103000'
+                    // byweekday: [ 'mo', 'fr', 'sa', 'su', 'tu', 'we', 'th' ],
+                    dtstart: '2023-08-01', // will also accept '20120201T103000'
                     until: '2023-11-01' // will also accept '20120201'
                 },
             },
@@ -99,3 +99,4 @@ var calendar = new FullCalendar.Calendar(calendarEl, {
 });
 calendar.render();
 
+console.log(window.testBridge.calendarApi())

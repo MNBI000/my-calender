@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, MenuItem, dialog } = require('electron');
+const { app, BrowserWindow, Menu, MenuItem, dialog, ipcMain, net, ipcRenderer } = require('electron');
 const path = require('path');
 const sound = require("sound-play");
 
@@ -15,7 +15,6 @@ const createWindow = () => {
     height: 800,
     icon: "./assets/img/logo.jpg",
     webPreferences: {
-      nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js'),
     },
   });
@@ -77,7 +76,7 @@ const createWindow = () => {
   let wc = mainWindow.webContents;
 
   wc.on('dom-ready', (e) => {
-    console.log(path.join(__dirname, 'preload.js'))
+    // console.log(path.join(__dirname, 'preload.js'))
     // sound.play(path.join(__dirname, "assets/sounds/alarm.wav"));
     // dialog.showMessageBox(
     //   (options = {
@@ -87,6 +86,24 @@ const createWindow = () => {
     //     console.log(res);
     //   });
       
+  })
+  ipcMain.handle('calendarApi', async () => {
+    const request = net.request({
+      method: "POST",
+      url: "https://api.texasapostille.org/public/api/getstatenames"
+    });
+    request.on('response', (response) => {
+      const data = [];
+      response.on('data', (chunk) => {
+        data.push(chunk);
+      })
+      response.on("end", () => {
+        const json = Buffer.concat(data).toString();
+        console.log(json);
+        mainWindow.webContents.send('apiData', json);
+      })
+    });
+    request.end();
   })
 
 };
@@ -115,4 +132,3 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
-
