@@ -1,40 +1,27 @@
 {
-  "name": "my-calender",
-  "productName": "my-calender",
+  "name": "my-calendar",
   "version": "1.0.0",
-  "description": "My Electron application description",
-  "main": "src/index.js",
+  "description": "My Calendar App",
+  "main": "main.js",
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\""
+    "start": "electron .",
+    "watch": "nodemon --exec electron .",
+    "reset": "git reset --hard"
   },
-  "keywords": [],
-  "author": "nasser",
-  "license": "MIT",
-  "dependencies": {
-    "axios": "^1.4.0",
-    "electron-squirrel-startup": "^1.0.0",
-    "fullcalendar": "^6.1.8",
-    "sound-play": "^1.1.0"
-  },
+  "repository": "https://github.com/stackacademytv/master-electron",
+  "keywords": [
+    "Electron",
+    "Master Electron",
+    "demo"
+  ],
+  "author": "GitHub, Stackacademytv",
+  "license": "CC0-1.0",
   "devDependencies": {
-    "@electron-forge/cli": "^6.3.0",
-    "@electron-forge/maker-deb": "^6.3.0",
-    "@electron-forge/maker-rpm": "^6.3.0",
-    "@electron-forge/maker-squirrel": "^6.3.0",
-    "@electron-forge/maker-zip": "^6.3.0",
-    "@electron-forge/plugin-auto-unpack-natives": "^6.3.0",
-    "electron": "^26.0.0"
+    "electron": "^9.0.0",
+    "nodemon": "^2.0.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MNBI000/my-calender.git"
-  },
-  "bugs": {
-    "url": "https://github.com/MNBI000/my-calender/issues"
-  },
-  "homepage": "https://github.com/MNBI000/my-calender#readme"
+  "dependencies": {
+    "node-fetch": "^2.7.0",
+    "sound-play": "^1.1.0"
+  }
 }
