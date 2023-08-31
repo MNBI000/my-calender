@@ -1,6 +1,8 @@
 // Modules
 const {app, BrowserWindow, session, globalShortcut, Menu, Tray} = require('electron')
 const path = require('path')
+const url = require('url')
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow, tray
@@ -70,7 +72,6 @@ function createWindow () {
         submenu: [
           {
             label: 'Dev Tools',
-            role: 'toggleDevTools'
           }
         ]
       },
@@ -79,9 +80,19 @@ function createWindow () {
         submenu: [
           {
             label: 'Add Event',
-            role: 'Add Event',
             click: () => {
               mainWindow.loadFile(path.join(__dirname, 'dashboard/addEvent.html'));
+            }
+          },
+          {
+            label: 'All Evenets',
+            click: () => {
+              mainWindow.loadURL(url.format({
+                pathname: path.join(__dirname, 'dashboard/allEvents.html'),
+                protocol: 'file:',
+                slashes: true
+              }));
+              // mainWindow.loadFile(path.join(__dirname, ''));
             }
           }
         ]
@@ -102,6 +113,7 @@ function createWindow () {
     })
   }
   mainWindow.loadFile('index.html')
+  
   globalShortcut.register("F + M", () => {
     mainWindow.loadURL('https://usarab.com')
     console.log('M pressed');
@@ -109,7 +121,7 @@ function createWindow () {
   globalShortcut.unregister('F + M')
   // Load index.html into the new BrowserWindow
   
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
 
   mainWindow.once('ready-to-show', mainWindow.show)

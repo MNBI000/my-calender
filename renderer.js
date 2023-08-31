@@ -4,6 +4,7 @@
 const fetch = require("node-fetch"),
     okBtn = document.getElementById("ok-button"),
     doneBtn = document.getElementById("done-button"),
+    undoBtn = document.getElementById("undo-button"),
     dialogElement = document.querySelector("dialog"),
     path = require('path'),
     sound = require("sound-play")
@@ -49,6 +50,7 @@ const apiData = async () => {
 
     events: allEvents.events,
     eventDataTransform: function (myEvent) {
+      // var color = myEvent.color;
       var color = null;
       return {
         eventId: myEvent.id,
@@ -87,7 +89,9 @@ const apiData = async () => {
       console.log(event.el.innerHTML);
       if (event.el.innerHTML.includes("green")) {
         doneBtn.style.display = 'none'
+        undoBtn.style.display = 'inline-block'
       } else {
+        undoBtn.style.display = 'none'
         doneBtn.style.display = 'inline-block'
       }
     },
@@ -129,17 +133,6 @@ const apiData = async () => {
 };
 document.addEventListener("DOMContentLoaded", function () {
   apiData();
-  // setTimeout(() => {
-  //   const now = new Date();
-  // const after48Hours = new Date(now.getTime() + (48 * 60 * 60 * 1000));
-  // const dateString = after48Hours.toISOString().slice(0, 10);
-  // let DateAfter2Days = document.querySelector(`[data-date='${dateString}'] .fc-event`)
-  // DateAfter2Days.style.backgroundColor = 'red';
-  // console.log(DateAfter2Days, dateString);
-  // console.log(DateAfter2Days, typeof(dateString));
-  // console.log(DateAfter2Days, dateString.length);
-
-  // }, 1000)
 });
 
 
@@ -187,4 +180,37 @@ doneBtn.addEventListener('click', () => {
         location.reload()
     }
     addDone()
+})
+undoBtn.addEventListener('click', () => {
+    dialogElement.style.display = 'none'
+    
+    let eventElement = document.querySelector(`a[data-id='${okBtn.dataset.id}']`);
+    
+    let parentDate = eventElement.closest("td"),
+    date = parentDate.dataset.date
+    eventElement.style.backgroundColor = ""
+    eventElement.dataset.id = ""
+
+    const undoDone = async () => {
+        const body = JSON.stringify({
+            id: okBtn.dataset.id,
+            date: date
+        })
+        const response = await fetch(
+            "http://localhost/calendar-api/public/api/delete-done",
+            { 
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    id: okBtn.dataset.id,
+                    date: date
+                }) 
+            }
+          );
+        const data = await response.text();
+        console.log(`date: ${date}, id: ${okBtn.dataset.id}`)
+        console.log(`api response: ${data}`)
+        location.reload()
+    }
+    undoDone()
 })
