@@ -8,7 +8,7 @@
     "watch": "nodemon --exec electron .",
     "reset": "git reset --hard"
   },
-  "repository": "https://github.com/stackacademytv/master-electron",
+  "repository": "https://github.com/MNBI000/my-calender.git",
   "keywords": [
     "Electron",
     "Master Electron",

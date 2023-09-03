@@ -35,7 +35,7 @@
                 <div class="mb-3">
                     <label for="selectFreq" class="form-label">Frequency</label>
                     <select class="form-select" aria-label="Default select example" id="selectFreq">
-                        <option disabled selected>-- Frequency --</option>
+                        <option disabled selected value="">-- Frequency --</option>
                         <option value="once">Once</option>
                         <option value="daily">Daily</option>
                         <option value="weekly">Weekly</option>
@@ -68,7 +68,7 @@
                     <div class="every-unit-container">
                         <span>Every: </span>
                         <select class="form-select" aria-label="Default select example" id="everyTimeUnit">
-                            <option disabled selected>-- Choose --</option>
+                            <option disabled selected value="">-- Choose --</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -89,7 +89,7 @@
                     <textarea class="form-control" id="e-description" rows="3"></textarea>
                 </div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Submit Event</button>
+                    <button type="button" class="btn btn-primary" id="submit">Submit Event</button>
                   </div>
             </form>
         </div>

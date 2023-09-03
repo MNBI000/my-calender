@@ -9,6 +9,7 @@ const fetch = require("node-fetch"),
     path = require('path'),
     sound = require("sound-play")
 
+    let alertText = ``;
 
 const apiData = async () => {
   const getAllDoneEvents = await fetch(
@@ -23,7 +24,7 @@ const apiData = async () => {
   const allEvents = await getAllEvents.json();
 
 
-  console.log(allDoneEvents);
+  console.log(allEvents);
   try {
     
   } catch (error) {
@@ -51,12 +52,12 @@ const apiData = async () => {
     events: allEvents.events,
     eventDataTransform: function (myEvent) {
       // var color = myEvent.color;
-      var color = null;
+      var color = "";
       return {
         eventId: myEvent.id,
         title: myEvent.title,
         description: myEvent.description,
-        color: color,
+        // color: color,
         // backgroundColor: color,
         done: myEvent.done,
         rrule: {
@@ -98,7 +99,7 @@ const apiData = async () => {
     eventContent: function(info) {
       // Calculate the date after 48 hours
       const now = new Date();
-      const after48Hours = new Date(now.getTime() + (48 * 60 * 60 * 1000));
+      const after48Hours = new Date(now.getTime() + (72 * 60 * 60 * 1000));
       const eventStartDate = new Date(info.event.start);
       eventStartDate.setDate(eventStartDate.getDate() + 1);
       const nowDateEvent = eventStartDate.toISOString().slice(0, 10);
@@ -118,6 +119,7 @@ const apiData = async () => {
         };
       } else if (eventStartDate >= now && eventStartDate <= after48Hours) {
         sound.play(path.join(__dirname, "assets/sounds/alarm.wav"))
+        alertText += `${info.event.title} on ${new Date(info.event.start).toLocaleString("en-US")} \n`
         alert(`${info.event.title} within 48 Hours from now and not done yet! \n ${new Date(info.event.start).toLocaleString("en-US")}`)
         return {
           html: `<div style="background-color: red;display:flex;justify-content:space-between;padding: 3px 4px;">${info.event.title} <i class="fa-solid fa-triangle-exclamation"></i></div>`

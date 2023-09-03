@@ -1,6 +1,4 @@
-const fetch = require("node-fetch"),
-  dialogElement = document.querySelector("dialog"),
-  path = require("path");
+const fetch = require("node-fetch")
 
 const apiData = async () => {
   const getAllEvents = await fetch(
