@@ -121,7 +121,7 @@ function createWindow () {
   globalShortcut.unregister('F + M')
   // Load index.html into the new BrowserWindow
   
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
 
   mainWindow.once('ready-to-show', mainWindow.show)

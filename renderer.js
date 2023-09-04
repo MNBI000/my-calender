@@ -52,6 +52,7 @@ const apiData = async () => {
     events: allEvents.events,
     eventDataTransform: function (myEvent) {
       // var color = myEvent.color;
+      console.log(typeof(myEvent.rrule.dtstart));
       var color = "";
       return {
         eventId: myEvent.id,
@@ -61,10 +62,10 @@ const apiData = async () => {
         // backgroundColor: color,
         done: myEvent.done,
         rrule: {
+          dtstart: myEvent.rrule.dtstart,
           freq: myEvent.rrule.freq,
           interval: myEvent.rrule.interval,
-          // byweekday: [ 0,1,2,3,4 ],
-          dtstart: myEvent.rrule.dtstart,
+          byweekday: myEvent.rrule.weekdays,
           until: myEvent.rrule.until,
         },
       };
@@ -77,7 +78,7 @@ const apiData = async () => {
       event.el.dataset.id = event.event._def.extendedProps.eventId
       document
       .querySelector("dialog p")
-      .innerHTML =`${
+      .innerHTML =`<h2>${event.event._def.title}</h2>${
         event.event._def.extendedProps.description != undefined
         ? event.event._def.extendedProps.description
         : "There is no description."
@@ -115,18 +116,18 @@ const apiData = async () => {
       if (foundObject) {
         info.event._def.extendedProps.done = 1;
         return {
-          html: `<div style="background-color: green;display:flex;justify-content:space-between;padding: 3px 4px;">${info.event.title} <i class="fa-solid fa-calendar-check"></i></div>`
+          html: `<div style="background-color: green;display:flex;justify-content:space-between;padding: 3px 4px;font-size:1.2rem;">${info.event.title} <i class="fa-solid fa-calendar-check"></i></div>`
         };
       } else if (eventStartDate >= now && eventStartDate <= after48Hours) {
         sound.play(path.join(__dirname, "assets/sounds/alarm.wav"))
         alertText += `${info.event.title} on ${new Date(info.event.start).toLocaleString("en-US")} \n`
         alert(`${info.event.title} within 48 Hours from now and not done yet! \n ${new Date(info.event.start).toLocaleString("en-US")}`)
         return {
-          html: `<div style="background-color: red;display:flex;justify-content:space-between;padding: 3px 4px;">${info.event.title} <i class="fa-solid fa-triangle-exclamation"></i></div>`
+          html: `<div style="background-color: red;display:flex;justify-content:space-between;padding: 3px 4px;font-size:1.2rem;">${info.event.title} <i class="fa-solid fa-triangle-exclamation"></i></div>`
         };
       } else {
         return {
-          html: `<div style="display:flex;justify-content:space-between;padding: 3px 4px;">${info.event.title}</div>`
+          html: `<div style="display:flex;justify-content:space-between;padding: 3px 4px;font-size:1.2rem;">${info.event.title}</div>`
         };
       }
     }

@@ -5,6 +5,7 @@ const freqSelect = document.getElementById('selectFreq'),
     submitBtn = document.getElementById('submit'),
     e_title = document.getElementById('e-title'),
     e_start_date = document.getElementById('e-start-date'),
+    e_start_time = document.getElementById('e-start-time'),
     e_end_date = document.getElementById('e-end-date'),
     selectFreq = document.getElementById('selectFreq'),
     weekday_mon = document.getElementById('weekday-mon'),
@@ -47,24 +48,52 @@ freqSelect.addEventListener('change', function(e) {
     everyTimeUnitsRenderer(freqVal);
 })
 
+e_start_date.addEventListener('change', () => {
+    let startVal = e_start_date.value
+    e_end_date.value = startVal
+})
+
+function formatDateAndTime(dateString, timeString) {
+    // Parse the date string into a Date object
+    const date = new Date(dateString);
+  
+    // Check if the time string is empty
+    if (!timeString) {
+      // If the time string is empty, return only the date in 'YYYY-MM-DD' format
+      return date.toISOString().split('T')[0];
+    } else {
+        const today = new Date(); // Get today's date
+        const [hours, minutes] = timeString.split(':');
+        today.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0); // Set the time
+
+        // Get the Unix timestamp (milliseconds since epoch)
+        const unixTimestamp = today.getTime() / 1000;
+      // If the time string is not empty, append the time in 'HH:mm:ss' format
+      return `${date.toISOString().split('T')[0]}T${unixTimestamp}`;
+    }
+  }
+
 submitBtn.addEventListener('click', async () => {
+    let dateStart = formatDateAndTime(e_start_date.value, e_start_time.value)
     const requestBody = {
         title: e_title.value,
-        dtstart: new Date(e_start_date.value).toISOString().slice(0, 10),
+        dtstart: e_start_date.value,
         until: new Date(e_end_date.value).toISOString().slice(0, 10),
         freq: selectFreq.value,
-        weekday_mon: weekday_mon.checked ? weekday_mon.value : null,
-        weekday_tue: weekday_tue.checked ? weekday_tue.value : null,
-        weekday_wed: weekday_wed.checked ? weekday_wed.value : null,
-        weekday_thu: weekday_thu.checked ? weekday_thu.value : null,
-        weekday_fri: weekday_fri.checked ? weekday_fri.value : null,
-        weekday_sat: weekday_sat.checked ? weekday_sat.value : null,
-        weekday_sun: weekday_sun.checked ? weekday_sun.value : null,
+        weekdays: [
+            weekday_mon.checked ? weekday_mon.value : null,
+            weekday_tue.checked ? weekday_tue.value : null,
+            weekday_wed.checked ? weekday_wed.value : null,
+            weekday_thu.checked ? weekday_thu.value : null,
+            weekday_fri.checked ? weekday_fri.value : null,
+            weekday_sat.checked ? weekday_sat.value : null,
+            weekday_sun.checked ? weekday_sun.value : null
+        ],
         interval: parseInt(everyTimeUnit.value),
         description: e_description.value
     }
 
-console.log(requestBody);
+    console.log(requestBody);
     
   const getAllEvents = await fetch(
     "http://localhost/calendar-api/public/api/add-event",
