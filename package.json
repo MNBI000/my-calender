@@ -6,15 +6,17 @@
   "scripts": {
     "start": "electron .",
     "watch": "nodemon --exec electron .",
-    "reset": "git reset --hard"
+    "reset": "git reset --hard",
+    "build": "electron-builder -w"
   },
   "repository": "https://github.com/MNBI000/my-calender.git",
+  "homepage": "https://github.com/MNBI000/my-calender.git",
   "keywords": [
     "Electron",
     "Master Electron",
     "demo"
   ],
-  "author": "GitHub, Stackacademytv",
+  "author": "Muhammad Nasser",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^9.4.4",
@@ -22,9 +24,23 @@
   },
   "dependencies": {
     "datatables.net-dt": "^1.13.6",
+    "electron-log": "^4.4.8",
+    "electron-updater": "^6.1.4",
     "jquery": "^3.7.1",
     "node-fetch": "^2.7.0",
     "react-dom": "^18.2.0",
     "sound-play": "^1.1.0"
+  },
+  "build": {
+    "appId": "com.mycalendar.muhammadnasser",
+    "copyright": "Copyright Ahmed Miski",
+    "publish": {
+      "provider": "github"
+    },
+    "win": {
+      "certificateFile": "private/MuhammadNasser-2023-09-05-061832.p12",
+      "certificatePassword": "password",
+      "publisherName": "Muhammad Nasser"
+    }
   }
 }

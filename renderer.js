@@ -1,5 +1,8 @@
 // This file is required by the index.html file and will
 // be executed in the renderer process for that window.
+
+const { indexOf } = require("./menus/trayMenu");
+
 // All of the Node.js APIs are available in this process.
 const fetch = require("node-fetch"),
     okBtn = document.getElementById("ok-button"),
@@ -13,12 +16,12 @@ const fetch = require("node-fetch"),
 
 const apiData = async () => {
   const getAllDoneEvents = await fetch(
-    "http://localhost/calendar-api/public/api/fetch-done",
+    "http://apidesktop.texasapostille.org/public/api/fetch-done",
     { method: "POST", body: "" }
   );
   const allDoneEvents = await getAllDoneEvents.json();
   const getAllEvents = await fetch(
-    "http://localhost/calendar-api/public/api/fetch-events",
+    "http://apidesktop.texasapostille.org/public/api/fetch-events",
     { method: "POST", body: "" }
   );
   const allEvents = await getAllEvents.json();
@@ -30,7 +33,7 @@ const apiData = async () => {
   } catch (error) {
     
   }
-
+  let counterAlert = 1;
   const calendarEl = document.getElementById("calendar");
   const calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: "dayGridMonth",
@@ -110,7 +113,7 @@ const apiData = async () => {
     
     
       // Check if the event's start date is within the 48-hour range
-      
+      console.log(info);
     
       // Access the start date of the event
       if (foundObject) {
@@ -119,9 +122,10 @@ const apiData = async () => {
           html: `<div style="background-color: green;display:flex;justify-content:space-between;padding: 3px 4px;font-size:1.2rem;">${info.event.title} <i class="fa-solid fa-calendar-check"></i></div>`
         };
       } else if (eventStartDate >= now && eventStartDate <= after48Hours) {
-        sound.play(path.join(__dirname, "assets/sounds/alarm.wav"))
-        alertText += `${info.event.title} on ${new Date(info.event.start).toLocaleString("en-US")} \n`
-        alert(`${info.event.title} within 48 Hours from now and not done yet! \n ${new Date(info.event.start).toLocaleString("en-US")}`)
+        
+        alertText += `${counterAlert}- ${info.event.title} on ${new Date(info.event.start).toLocaleString("en-US")} \n`
+        counterAlert++
+        // alert(`${info.event.title} within 48 Hours from now and not done yet! \n ${new Date(info.event.start).toLocaleString("en-US")}`)
         return {
           html: `<div style="background-color: red;display:flex;justify-content:space-between;padding: 3px 4px;font-size:1.2rem;">${info.event.title} <i class="fa-solid fa-triangle-exclamation"></i></div>`
         };
@@ -133,6 +137,12 @@ const apiData = async () => {
     }
   });
   calendar.render();
+  setTimeout(() => {
+    if(alertText != ``) {
+      sound.play(path.join(__dirname, "assets/sounds/alarm.wav"))
+      alert('List of Events within the next 48 Hour:\n'+alertText)
+    }
+  }, 500)
 };
 document.addEventListener("DOMContentLoaded", function () {
   apiData();
@@ -167,7 +177,7 @@ doneBtn.addEventListener('click', () => {
             date: date
         })
         const response = await fetch(
-            "http://localhost/calendar-api/public/api/add-done",
+            "http://apidesktop.texasapostille.org/public/api/add-done",
             { 
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
@@ -200,7 +210,7 @@ undoBtn.addEventListener('click', () => {
             date: date
         })
         const response = await fetch(
-            "http://localhost/calendar-api/public/api/delete-done",
+            "http://apidesktop.texasapostille.org/public/api/delete-done",
             { 
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},

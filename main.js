@@ -2,13 +2,14 @@
 const {app, BrowserWindow, session, globalShortcut, Menu, Tray} = require('electron')
 const path = require('path')
 const url = require('url')
+const updater = require('./updater')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow, tray
 
 function createTray() {
-  tray = new Tray('./assets/img/iconTemplate@2x.png');
+  tray = new Tray(__dirname+'\\assets\\img\\iconTemplate@2x.png');
   tray.setToolTip('My Calrendar App is working')
   
   tray.on('click', e => {
@@ -21,6 +22,8 @@ function createTray() {
 
 // Create a new BrowserWindow when `app` is ready
 function createWindow () {
+
+  setTimeout(updater, 1000)
   
   createTray()
   
@@ -41,42 +44,21 @@ function createWindow () {
       nodeIntegration: true,
       session: customSession,
     },
-    icon: "./assets/img/icon.png",
+    icon: __dirname+"\\assets\\img\\icon.png",
     show: false,
   })
   
   
   let mainMenu = Menu.buildFromTemplate([
     {
-        label: 'Main',
-        submenu: [
-          {
-            label: 'Main Calendar',
-            accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
-            click: () => {
-              mainWindow.loadFile(path.join(__dirname, 'index.html'));
-            }
-          },
-          {
-            label: 'reopen app',
-            accelerator: process.platform === 'darwin' ? 'Cmd+W' : 'Ctrl+W',
-            click: () => {
-              app.relaunch({ args: process.argv.slice(1).concat(['--relaunch']) })
-              app.exit(0)
-            }
-          }
-        ]
+        label: 'Home',
+        accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
+        click: () => {
+          mainWindow.loadFile(path.join(__dirname, 'index.html'));
+        }
       },
       {
-        label: 'Tools',
-        submenu: [
-          {
-            label: 'Dev Tools',
-          }
-        ]
-      },
-      {
-        label: 'Dashboard',
+        label: 'Settings',
         submenu: [
           {
             label: 'Add Event',

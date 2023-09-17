@@ -2,7 +2,7 @@ const fetch = require("node-fetch")
 
 const apiData = async () => {
   const getAllEvents = await fetch(
-    "http://localhost/calendar-api/public/api/fetch-events-dashboard",
+    "http://apidesktop.texasapostille.org/public/api/fetch-events-dashboard",
     { method: "POST", body: "" }
   );
   const allEvents = await getAllEvents.json()

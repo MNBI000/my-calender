@@ -96,7 +96,7 @@ submitBtn.addEventListener('click', async () => {
     console.log(requestBody);
     
   const getAllEvents = await fetch(
-    "http://localhost/calendar-api/public/api/add-event",
+    "http://apidesktop.texasapostille.org/public/api/add-event",
     { 
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -105,5 +105,6 @@ submitBtn.addEventListener('click', async () => {
   );
   const response = await getAllEvents.json()
 
-  console.log(response)
+  alert('Event created successfully!')
+  window.location.reload();
 })
