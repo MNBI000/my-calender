@@ -1,5 +1,6 @@
 # My Calendar App - Events Reminder System with Alarm 
 
-Demo project modified from: [https://github.com/electron/electron-quick-start](https://github.com/MNBI000/my-calender.git)https://github.com/MNBI000/my-calender.git
+Demo project modified from: [https://github.com/electron/electron-quick-start]
 
 
+![Calendar App](https://raw.githubusercontent.com/stackacademytv/master-electron/master/splash.png)
