@@ -23,7 +23,7 @@ function createTray() {
 // Create a new BrowserWindow when `app` is ready
 function createWindow () {
 
-  setTimeout(updater, 1000)
+  setTimeout(updater, 3000)
   
   createTray()
   

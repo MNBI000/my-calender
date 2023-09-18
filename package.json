@@ -20,6 +20,7 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^9.4.4",
+    "electron-squirrel-startup": "^1.0.0",
     "nodemon": "^2.0.0"
   },
   "dependencies": {
@@ -33,14 +34,22 @@
   },
   "build": {
     "appId": "com.mycalendar.muhammadnasser",
-    "copyright": "Copyright Ahmed Miski",
+    "copyright": "Copyright Mr.Ahmed Miski",
     "publish": {
-      "provider": "github"
+      "provider": "github",
+      "owner": "MNBI000",
+      "protocol": "https",
+      "repo": "my-calender",
+      "releaseType": "release",
+      "private": true
     },
     "win": {
       "certificateFile": "private/MuhammadNasser-2023-09-05-061832.p12",
       "certificatePassword": "password",
-      "publisherName": "Muhammad Nasser"
+      "publisherName": "Muhammad Nasser",
+      "publish": [
+        "github"
+      ]
     }
   }
 }
