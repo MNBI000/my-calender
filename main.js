@@ -88,7 +88,7 @@ function createWindow () {
   let getCookies = () => {
     customSession.cookies.get({})
     .then(cookies => {
-      console.log("cookies", cookies)
+      console.log("cookies test", cookies)
     })
     .catch(errors => {
       console.log(errors)
