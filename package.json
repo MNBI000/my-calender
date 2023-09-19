@@ -1,13 +1,14 @@
 {
   "name": "my-calendar",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "My Calendar App",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "watch": "nodemon --exec electron .",
     "reset": "git reset --hard",
-    "build": "electron-builder -w"
+    "build": "electron-builder -w",
+    "release": "electron-builder -w -p onTagOrDraft"
   },
   "repository": "https://github.com/MNBI000/my-calender.git",
   "homepage": "https://github.com/MNBI000/my-calender.git",
@@ -41,7 +42,7 @@
       "protocol": "https",
       "repo": "my-calender",
       "releaseType": "release",
-      "private": true
+      "token": "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"
     },
     "win": {
       "certificateFile": "private/MuhammadNasser-2023-09-05-061832.p12",
