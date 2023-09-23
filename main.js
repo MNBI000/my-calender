@@ -51,34 +51,41 @@ function createWindow () {
   
   let mainMenu = Menu.buildFromTemplate([
     {
-        label: 'Home',
-        accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
-        click: () => {
-          mainWindow.loadFile(path.join(__dirname, 'index.html'));
-        }
-      },
-      {
-        label: 'Settings',
-        submenu: [
-          {
-            label: 'Add Event',
-            click: () => {
-              mainWindow.loadFile(path.join(__dirname, 'dashboard/addEvent.html'));
-            }
-          },
-          {
-            label: 'All Evenets',
-            click: () => {
-              mainWindow.loadURL(url.format({
-                pathname: path.join(__dirname, 'dashboard/allEvents.html'),
-                protocol: 'file:',
-                slashes: true
-              }));
-              // mainWindow.loadFile(path.join(__dirname, ''));
-            }
-          }
-        ]
+      label: 'Home',
+      accelerator: process.platform === 'darwin' ? 'Cmd+R' : 'Ctrl+R',
+      click: () => {
+        mainWindow.loadFile(path.join(__dirname, 'index.html'));
       }
+    },
+    {
+      label: 'Events with Google',
+      accelerator: process.platform === 'darwin' ? 'Cmd+G' : 'Ctrl+G',
+      click: () => {
+        mainWindow.loadFile(path.join(__dirname, 'indexGoogle.html'));
+      }
+    },
+    {
+      label: 'Settings',
+      submenu: [
+        {
+          label: 'Add Event',
+          click: () => {
+            mainWindow.loadFile(path.join(__dirname, 'dashboard/addEvent.html'));
+          }
+        },
+        {
+          label: 'All Evenets',
+          click: () => {
+            mainWindow.loadURL(url.format({
+              pathname: path.join(__dirname, 'dashboard/allEvents.html'),
+              protocol: 'file:',
+              slashes: true
+            }));
+            // mainWindow.loadFile(path.join(__dirname, ''));
+          }
+        }
+      ]
+    }
 ])
   
   //set App Menu
@@ -103,7 +110,7 @@ function createWindow () {
   globalShortcut.unregister('F + M')
   // Load index.html into the new BrowserWindow
   
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
 
   mainWindow.once('ready-to-show', mainWindow.show)
