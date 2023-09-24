@@ -30,6 +30,7 @@
     "electron-updater": "^6.1.4",
     "jquery": "^3.7.1",
     "node-fetch": "^2.7.0",
+    "oauth-electron": "^2.0.63",
     "react-dom": "^18.2.0",
     "sound-play": "^1.1.0"
   },
