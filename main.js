@@ -1,8 +1,43 @@
 // Modules
-const {app, BrowserWindow, session, globalShortcut, Menu, Tray} = require('electron')
+const {app, BrowserWindow, session, globalShortcut, Menu, Tray, ipcMain} = require('electron')
 const path = require('path')
 const url = require('url')
 const updater = require('./updater')
+// const { app, BrowserWindow, ipcMain } = require('electron');
+const { google } = require('googleapis');
+
+const oauth2Client = new google.auth.OAuth2(
+  '472995507032-tcui1pauebvm305hb30rfj6lnap83ojh.apps.googleusercontent.com',
+  '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',
+  'http://localhost' // Make sure this matches the redirect URI in your Google Cloud Console project.
+);
+
+// Open a browser window to the OAuth2 URL
+ipcMain.on('open-auth-window', (event) => {
+  const authUrl = oauth2Client.generateAuthUrl({
+    access_type: 'offline',
+    scope: 'https://www.googleapis.com/auth/calendar', // Your desired scope(s)
+  });
+
+  const authWindow = new BrowserWindow({ width: 800, height: 600 });
+
+  authWindow.loadURL(authUrl);
+
+  // Handle the callback when the user grants permission
+  authWindow.webContents.on('will-redirect', async (event, url) => {
+    const query = new URL(url).searchParams;
+    const code = query.get('code');
+
+    if (code) {
+      // Exchange the authorization code for access tokens
+      const { tokens } = await oauth2Client.getToken(code);
+      // Store or use the tokens as needed
+      mainWindow.webContents.send('tokens-received', tokens);
+      authWindow.close();
+      console.log(tokens);
+    }
+  });
+});
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
